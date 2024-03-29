@@ -11,33 +11,69 @@ const CategoriesPage = () => {
   const [categorie, setCategorie] = useState("");
   const [lienRedirection, setLienRedirection] = useState("");
 
-  const [informationsStockees, setInformationsStockees] = useState(() => {
-    const savedInformations = localStorage.getItem("informations");
-    return savedInformations ? JSON.parse(savedInformations) : [];
+    const [informationsStockees, setInformationsStockees] = useState(() => {
+    // Vérifie si window (côté client) est défini avant d'accéder à localStorage
+    if (typeof window !== 'undefined') {
+      const savedInformations = localStorage.getItem("informations");
+      return savedInformations ? JSON.parse(savedInformations) : [];
+    }
+    return [];
   });
 
   useEffect(() => {
-    localStorage.setItem("informations", JSON.stringify(informationsStockees));
+    // Vérifie si window (côté client) est défini avant d'accéder à localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("informations", JSON.stringify(informationsStockees));
+    }
   }, [informationsStockees]);
 
   // Save
-  const handleSave = () => {
+  const handleSave = (event) => {
     event.preventDefault();
-    const nouvelleInformation = {
-      nomProduit,
-      color,
-      storage,
-      categorie,
-      lienRedirection,
-    };
-    setInformationsStockees([...informationsStockees, nouvelleInformation]);
-
-    setNomProduit("");
-    setColor("");
-    setStorage("");
-    setCategorie("");
-    setLienRedirection("");
+    // Vérifie si window (côté client) est défini avant d'accéder à localStorage
+    if (typeof window !== 'undefined') {
+      const nouvelleInformation = {
+        nomProduit,
+        color,
+        storage,
+        categorie,
+        lienRedirection,
+      };
+      setInformationsStockees([...informationsStockees, nouvelleInformation]);
+      setNomProduit("");
+      setColor("");
+      setStorage("");
+      setCategorie("");
+      setLienRedirection("");
+    }
   };
+  // const [informationsStockees, setInformationsStockees] = useState(() => {
+  //   const savedInformations = localStorage.getItem("informations");
+  //   return savedInformations ? JSON.parse(savedInformations) : [];
+  // });
+
+  // useEffect(() => {
+  //   localStorage.setItem("informations", JSON.stringify(informationsStockees));
+  // }, [informationsStockees]);
+
+  // // Save
+  // const handleSave = () => {
+  //   event.preventDefault();
+  //   const nouvelleInformation = {
+  //     nomProduit,
+  //     color,
+  //     storage,
+  //     categorie,
+  //     lienRedirection,
+  //   };
+  //   setInformationsStockees([...informationsStockees, nouvelleInformation]);
+
+  //   setNomProduit("");
+  //   setColor("");
+  //   setStorage("");
+  //   setCategorie("");
+  //   setLienRedirection("");
+  // };
 
   return (
     <div className={styles.container}>
