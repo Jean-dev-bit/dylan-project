@@ -12,7 +12,7 @@ const CategoriesPage = () => {
   const [lienRedirection, setLienRedirection] = useState("");
 
     const [informationsStockees, setInformationsStockees] = useState(() => {
-    // Vérifie si window (côté client) est défini avant d'accéder à localStorage
+
     if (typeof window !== 'undefined') {
       const savedInformations = localStorage.getItem("informations");
       return savedInformations ? JSON.parse(savedInformations) : [];
@@ -21,7 +21,7 @@ const CategoriesPage = () => {
   });
 
   useEffect(() => {
-    // Vérifie si window (côté client) est défini avant d'accéder à localStorage
+
     if (typeof window !== 'undefined') {
       localStorage.setItem("informations", JSON.stringify(informationsStockees));
     }
@@ -30,7 +30,7 @@ const CategoriesPage = () => {
   // Save
   const handleSave = (event) => {
     event.preventDefault();
-    // Vérifie si window (côté client) est défini avant d'accéder à localStorage
+
     if (typeof window !== 'undefined') {
       const nouvelleInformation = {
         nomProduit,
@@ -47,33 +47,6 @@ const CategoriesPage = () => {
       setLienRedirection("");
     }
   };
-  // const [informationsStockees, setInformationsStockees] = useState(() => {
-  //   const savedInformations = localStorage.getItem("informations");
-  //   return savedInformations ? JSON.parse(savedInformations) : [];
-  // });
-
-  // useEffect(() => {
-  //   localStorage.setItem("informations", JSON.stringify(informationsStockees));
-  // }, [informationsStockees]);
-
-  // // Save
-  // const handleSave = () => {
-  //   event.preventDefault();
-  //   const nouvelleInformation = {
-  //     nomProduit,
-  //     color,
-  //     storage,
-  //     categorie,
-  //     lienRedirection,
-  //   };
-  //   setInformationsStockees([...informationsStockees, nouvelleInformation]);
-
-  //   setNomProduit("");
-  //   setColor("");
-  //   setStorage("");
-  //   setCategorie("");
-  //   setLienRedirection("");
-  // };
 
   return (
     <div className={styles.container}>
